@@ -2,6 +2,8 @@ package com.example.ressourcemanagement.Controller;
 
 import com.example.ressourcemanagement.Models.Commande;
 import com.example.ressourcemanagement.Services.CommandeFunImpl;
+import com.example.ressourcemanagement.Services.CommandeFunctionality;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,36 +14,35 @@ import java.util.List;
 @RestController
 @RequestMapping("/commande")
 public class CommandeController {
-    private final CommandeFunImpl commandeService;
+    @Autowired
+    private CommandeFunctionality commandeFunctionality;
 
-    public CommandeController(CommandeFunImpl commandeService){
-        this.commandeService=commandeService;
+    @GetMapping
+    public List<Commande> getAllCommandes() {
+        return commandeFunctionality.getAllCommandes();
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<Commande>> listCommande(){
-        return new ResponseEntity<>(commandeService.findAll(), HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<Commande> getCommandeById(@PathVariable int id) {
+        Commande commande = commandeFunctionality.getCommandeById(id);
+        return ResponseEntity.ok(commande);
     }
 
-
-
-
-    @PostMapping("/ajouter")
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
     public ResponseEntity<Commande> createCommande(@RequestBody Commande commande) {
-        return new ResponseEntity<>(commandeService.ajouterCommande(commande), HttpStatus.OK);
+        Commande createdCommande = commandeFunctionality.createCommande(commande);
+        return ResponseEntity.ok(createdCommande);
     }
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Commande> updateCommande(@PathVariable(value = "id") long id,
-                                                   @RequestBody Commande commande){
-        return new ResponseEntity<>(commandeService.updateCommande(id, commande),
-                HttpStatus.OK);
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Commande> updateCommande(@PathVariable int id, @RequestBody Commande commandeDetails) {
+        Commande updatedCommande = commandeFunctionality.updateCommande(id, commandeDetails);
+        return ResponseEntity.ok(updatedCommande);
     }
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> deleteCommande(@PathVariable(value = "id") long id) {
-        return new ResponseEntity<>(commandeService.deleteCommande(id), HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCommande(@PathVariable int id) {
+        commandeFunctionality.deleteCommande(id);
+        return ResponseEntity.ok("{\"message\": \"Commande supprimée avec succès !\"}");
     }
 
 }

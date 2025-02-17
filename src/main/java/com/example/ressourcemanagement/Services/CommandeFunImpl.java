@@ -2,47 +2,50 @@ package com.example.ressourcemanagement.Services;
 
 import com.example.ressourcemanagement.DAO.CommandeRepository;
 import com.example.ressourcemanagement.Models.Commande;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CommandeFunImpl {
-    private CommandeRepository cr;
+public class CommandeFunImpl implements CommandeFunctionality{
+    @Autowired
+    private CommandeRepository commandeRepository;
 
-    public CommandeFunImpl(CommandeRepository cr){
-        this.cr=cr;
+    @Override
+    public List<Commande> getAllCommandes() {
+        return commandeRepository.findAll();
     }
 
-
-
-    public Commande ajouterCommande(Commande commande) {
-        return cr.save(commande);
+    @Override
+    public Commande getCommandeById(int id) {
+        return commandeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Commande not found with id: " + id));
     }
 
-
-    public List<Commande> findAll() {
-        return cr.findAll();
+    @Override
+    public Commande createCommande(Commande commande) {
+        return commandeRepository.save(commande);
     }
 
+    @Override
+    public Commande updateCommande(int id, Commande commandeDetails) {
+        Commande commande = commandeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Commande not found with id: " + id));
 
-    public Commande updateCommande(long id, Commande newCommande) {
-        if (cr.findById(id).isPresent()) {
-            Commande commande = cr.findById(id).get();
-            commande.setStatus(newCommande.getStatus());
-            commande.setDate(newCommande.getDate());
-            commande.setTotalAmount(newCommande.getTotalAmount());
-            return cr.save(commande);
-        } else
-            return null;
+        commande.setDate(commandeDetails.getDate());
+        commande.setStatus(commandeDetails.getStatus());
+        commande.setTotalAmount(commandeDetails.getTotalAmount());
+        commande.setFournisseur(commandeDetails.getFournisseur());
+        commande.setFactures(commandeDetails.getFactures());
+
+        return commandeRepository.save(commande);
     }
 
-
-    public String deleteCommande(long id) {
-        if (cr.findById(id).isPresent()) {
-            cr.deleteById(id);
-            return "commande supprimé";
-        } else
-            return "commande non supprimé";
+    @Override
+    public void deleteCommande(int id) {
+        Commande commande = commandeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Commande not found with id: " + id));
+        commandeRepository.delete(commande);
     }
 }

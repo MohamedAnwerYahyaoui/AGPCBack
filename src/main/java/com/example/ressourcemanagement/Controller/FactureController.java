@@ -36,10 +36,10 @@ public class FactureController {
         Facture updatedFacture = factureFunctionality.updateFacture(id, factureDetails);
         return ResponseEntity.ok(updatedFacture);
     }
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFacture(@PathVariable int id) {
+    public ResponseEntity<String> deleteFacture(@PathVariable int id) {
         factureFunctionality.deleteFacture(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("{\"message\": \"Facture supprimée avec succès !\"}");
     }
+
 }

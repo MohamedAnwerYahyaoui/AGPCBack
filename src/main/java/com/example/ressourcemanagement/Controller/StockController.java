@@ -43,8 +43,9 @@ public class StockController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStock(@PathVariable int id) {
+    public ResponseEntity<String> deleteStock(@PathVariable int id) {
         stockFunctionality.deleteStock(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("{\"message\": \"Stock supprimé avec succès !\"}");
     }
+
 }

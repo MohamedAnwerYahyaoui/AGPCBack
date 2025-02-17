@@ -39,8 +39,9 @@ public class FournisseurController {
                 HttpStatus.OK);
     }
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteFournisseur(@PathVariable(value = "id") long id) {
-        return new ResponseEntity<>(fournisseurService.deleteFournisseur(id), HttpStatus.OK);
+        fournisseurService.deleteFournisseur(id);
+        return ResponseEntity.ok("{\"message\": \"Fournisseur supprimé avec succès !\"}");
     }
+
 }

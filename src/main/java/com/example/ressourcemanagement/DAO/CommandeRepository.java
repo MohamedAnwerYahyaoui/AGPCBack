@@ -2,6 +2,8 @@ package com.example.ressourcemanagement.DAO;
 
 import com.example.ressourcemanagement.Models.Commande;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CommandeRepository extends JpaRepository<Commande,Long>  {
+@Repository
+public interface CommandeRepository extends JpaRepository<Commande,Integer>  {
 }

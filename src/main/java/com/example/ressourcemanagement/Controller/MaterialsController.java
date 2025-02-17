@@ -40,8 +40,9 @@ public class MaterialsController {
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteMaterials(@PathVariable(value = "id") long id) {
-        return new ResponseEntity<>(materialsService.deleteMaterials(id), HttpStatus.OK);
+        materialsService.deleteMaterials(id);
+        return ResponseEntity.ok("{\"message\": \"Matériau supprimé avec succès !\"}");
     }
+
 }
