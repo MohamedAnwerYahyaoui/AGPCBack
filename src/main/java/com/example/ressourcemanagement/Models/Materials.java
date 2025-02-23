@@ -1,6 +1,7 @@
 package com.example.ressourcemanagement.Models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,15 +17,27 @@ import java.util.List;
 public class Materials {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+    private Long id;
+
+    @NotBlank(message = "Le nom ne peut pas être vide")
+    @Size(max = 100, message = "Le nom ne peut pas dépasser 100 caractères")
     private String name;
+
+    @NotNull(message = "La quantité ne peut pas être nulle")
+    @PositiveOrZero(message = "La quantité doit être positive ou nulle")
     private int quantity;
+
+    @NotNull(message = "Le prix unitaire ne peut pas être nul")
+    @Positive(message = "Le prix unitaire doit être positif")
     private double unitPrice;
+
+    @NotNull(message = "La catégorie ne peut pas être nulle")
     @Enumerated(EnumType.STRING)
     private Categorie categorie;
 
     @OneToMany(mappedBy = "materiel", cascade = CascadeType.ALL)
     private List<Stock> stockList;
+
 
     public Materials() {
     }

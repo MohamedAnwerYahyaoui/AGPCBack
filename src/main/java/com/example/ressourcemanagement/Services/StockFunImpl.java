@@ -5,6 +5,7 @@ import com.example.ressourcemanagement.DAO.StockRepository;
 import com.example.ressourcemanagement.Models.Materials;
 import com.example.ressourcemanagement.Models.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,15 @@ public class StockFunImpl implements StockFunctionality {
 
     @Autowired
     private StockRepository stockRepository;
+
     @Autowired
     private MaterialsRepository materialsRepository;
+
     @Autowired
     private JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String mailFrom;
 
     @Override
     public List<Stock> getAllStocks() {
@@ -52,9 +58,11 @@ public class StockFunImpl implements StockFunctionality {
     public Stock updateStock(int id, Stock stockDetails) {
         Stock stock = stockRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Stock not found with id: " + id));
+
         stock.setMateriel(stockDetails.getMateriel());
         stock.setCurrentQuantity(stockDetails.getCurrentQuantity());
         stock.setThreshold(stockDetails.getThreshold());
+
         Stock updatedStock = stockRepository.save(stock);
         checkStockAlert(updatedStock);
         return updatedStock;
@@ -79,7 +87,7 @@ public class StockFunImpl implements StockFunctionality {
     }
 
     private void sendAlert(Stock stock) {
-        String alertMessage = "ALERTE : Le stock de " + stock.getMateriel().getName() +
+        String alertMessage = "⚠️ ALERTE : Le stock de " + stock.getMateriel().getName() +
                 " est inférieur au seuil (" + stock.getThreshold() +
                 "). Quantité actuelle : " + stock.getCurrentQuantity();
         logger.info(alertMessage);
@@ -88,12 +96,15 @@ public class StockFunImpl implements StockFunctionality {
     private void sendEmailAlert(Stock stock) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setTo("Farah.Kouki@esprit.tn");
-        helper.setSubject("Alerte de stock");
+
+        helper.setFrom(mailFrom);
+        helper.setTo(mailFrom);
+        helper.setSubject("⚠️ Alerte de stock");
+
         String htmlContent = "<html>" +
                 "<body style='font-family: Arial, sans-serif; color: #333;'>" +
-                "<h2 style='color: #d9534f;'>ALERTE : Stock faible</h2>" +
-                "<p>Le stock  <strong>" + stock.getMateriel().getName() + "</strong> est inférieur au seuil.</p>" +
+                "<h2 style='color: #d9534f;'>⚠️ ALERTE : Stock Faible</h2>" +
+                "<p>Le stock <strong>" + stock.getMateriel().getName() + "</strong> est inférieur au seuil.</p>" +
                 "<ul>" +
                 "<li><strong>Seuil :</strong> " + stock.getThreshold() + "</li>" +
                 "<li><strong>Quantité actuelle :</strong> " + stock.getCurrentQuantity() + "</li>" +
@@ -101,8 +112,9 @@ public class StockFunImpl implements StockFunctionality {
                 "<p style='color: #777; font-size: 0.9em;'>Veuillez prendre les mesures nécessaires pour réapprovisionner le stock.</p>" +
                 "</body>" +
                 "</html>";
+
         helper.setText(htmlContent, true);
         mailSender.send(message);
-        logger.info("Email d'alerte envoyé avec succès pour le stock  " + stock.getMateriel().getName());
+        logger.info("📧 Email d'alerte envoyé avec succès pour le stock de " + stock.getMateriel().getName());
     }
 }

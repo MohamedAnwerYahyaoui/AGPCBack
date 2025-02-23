@@ -11,6 +11,6 @@ import lombok.Setter;
 
 
 public enum Categorie {
-        BOIS , Plastique , ACIER , CIMENT
+        BOIS , PLASTIQUE , ACIER , CIMENT
 
 }

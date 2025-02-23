@@ -1,44 +1,36 @@
 package com.example.ressourcemanagement.Models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
-
-@AllArgsConstructor
+@Table(name = "fournisseur")
 public class Fournisseur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+
+    @NotBlank(message = "Le nom ne peut pas être vide")
+    @Size(max = 10, message = "Le nom ne peut pas dépasser 100 caractères")
     private String name;
+
+    @NotBlank(message = "Le contact ne peut pas être vide")
+    @Size(max = 100, message = "Le contact ne peut pas dépasser 100 caractères")
     private String contact;
-    private int numtel;
 
-    @OneToMany(mappedBy = "fournisseur", cascade = CascadeType.ALL)
-    private List<Commande> commandes;
+    @NotBlank(message = "Le numéro de téléphone ne peut pas être vide")
+    @Size(max = 8, message = "Le numéro de téléphone ne peut pas dépasser 20 caractères")
+    private String numtel;
 
-    public Fournisseur() {
-    }
-
-    public Fournisseur(String name, String contact, int numtel, List<Commande> commandes) {
-        this.name = name;
-        this.contact = contact;
-        this.numtel = numtel;
-        this.commandes = commandes;
-    }
-
-    public int getId() {
+    // Getters et setters
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,19 +50,35 @@ public class Fournisseur {
         this.contact = contact;
     }
 
-    public int getNumtel() {
+    public String getNumtel() {
         return numtel;
     }
 
-    public void setNumtel(int numtel) {
+    public void setNumtel(String numtel) {
         this.numtel = numtel;
     }
 
-    public List<Commande> getCommandes() {
-        return commandes;
+    // Équivalent et hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fournisseur that = (Fournisseur) o;
+        return Objects.equals(id, that.id);
     }
 
-    public void setCommandes(List<Commande> commandes) {
-        this.commandes = commandes;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Fournisseur{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", contact='" + contact + '\'' +
+                ", numtel='" + numtel + '\'' +
+                '}';
     }
 }
