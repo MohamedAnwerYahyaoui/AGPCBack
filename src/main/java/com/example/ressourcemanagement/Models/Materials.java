@@ -1,5 +1,7 @@
 package com.example.ressourcemanagement.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +38,7 @@ public class Materials {
     private Categorie categorie;
 
     @OneToMany(mappedBy = "materiel", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("materiel") // Ignore le champ materiel dans la sérialisation
     private List<Stock> stockList;
 
 
@@ -84,9 +87,7 @@ public class Materials {
 
     public Categorie getCategorie() {
         return categorie;
-    }
-
-    public void setCategorie(Categorie categorie) {
+    } public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
     }
 

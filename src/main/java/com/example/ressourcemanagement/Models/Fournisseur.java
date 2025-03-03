@@ -14,7 +14,7 @@ public class Fournisseur {
     private Long id;
 
     @NotBlank(message = "Le nom ne peut pas être vide")
-    @Size(max = 10, message = "Le nom ne peut pas dépasser 100 caractères")
+    @Size(max = 100, message = "Le nom ne peut pas dépasser 100 caractères")
     private String name;
 
     @NotBlank(message = "Le contact ne peut pas être vide")
@@ -22,7 +22,7 @@ public class Fournisseur {
     private String contact;
 
     @NotBlank(message = "Le numéro de téléphone ne peut pas être vide")
-    @Size(max = 8, message = "Le numéro de téléphone ne peut pas dépasser 20 caractères")
+    @Size(max = 13, message = "Le numéro de téléphone ne peut pas dépasser 20 caractères")
     private String numtel;
 
     // Getters et setters

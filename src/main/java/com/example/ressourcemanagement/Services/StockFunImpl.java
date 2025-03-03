@@ -33,10 +33,14 @@ public class StockFunImpl implements StockFunctionality {
     @Value("${spring.mail.username}")
     private String mailFrom;
 
+
     @Override
     public List<Stock> getAllStocks() {
-        return stockRepository.findAll();
+        List<Stock> stocks = stockRepository.findAll();
+        stocks.forEach(stock -> System.out.println("Stock trouvé : " + stock));
+        return stocks;
     }
+
 
     @Override
     public Stock getStockById(int id) {
@@ -46,27 +50,59 @@ public class StockFunImpl implements StockFunctionality {
 
     @Override
     public Stock createStock(Stock stock) {
+        // Debug : Affichez les données reçues
+        System.out.println("Données reçues : " + stock);
+
+        // Vérifiez que le matériel est présent et a un ID valide
+        if (stock.getMateriel() == null || stock.getMateriel().getId() == 0) {
+            System.out.println("Erreur : Aucun matériel sélectionné ou ID invalide");
+            throw new RuntimeException("Materials not found with id: 0");
+        }
+
+        // Trouvez le matériel dans la base de données
         Materials materiel = materialsRepository.findById(stock.getMateriel().getId())
-                .orElseThrow(() -> new RuntimeException("Materials not found with id: " + stock.getMateriel().getId()));
+                .orElseThrow(() -> {
+                    System.out.println("Matériel non trouvé avec ID : " + stock.getMateriel().getId()); // Debug
+                    return new RuntimeException("Materials not found with id: " + stock.getMateriel().getId());
+                });
+
+        System.out.println("Matériel trouvé : " + materiel); // Debug : Affichez le matériel trouvé
+
+        // Associez le matériel au stock
         stock.setMateriel(materiel);
+
+        // Enregistrez le stock dans la base de données
         Stock createdStock = stockRepository.save(stock);
+
+        // Debug : Affichez le stock créé
+        System.out.println("Stock créé : " + createdStock);
+
+        // Vérifiez les alertes de stock
         checkStockAlert(createdStock);
+
         return createdStock;
     }
-
     @Override
     public Stock updateStock(int id, Stock stockDetails) {
+        // Vérification si le stock existe dans la base de données
         Stock stock = stockRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Stock not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Stock not found with id: " + id)); // Utilisation de RuntimeException
 
+        // Mise à jour des propriétés du stock
         stock.setMateriel(stockDetails.getMateriel());
         stock.setCurrentQuantity(stockDetails.getCurrentQuantity());
         stock.setThreshold(stockDetails.getThreshold());
 
+        // Sauvegarde du stock mis à jour
         Stock updatedStock = stockRepository.save(stock);
+
+        // Vérification des alertes sur le stock
         checkStockAlert(updatedStock);
+
+        // Retour du stock mis à jour
         return updatedStock;
     }
+
 
     @Override
     public void deleteStock(int id) {
@@ -78,11 +114,11 @@ public class StockFunImpl implements StockFunctionality {
     private void checkStockAlert(Stock stock) {
         if (stock.getCurrentQuantity() < stock.getThreshold()) {
             sendAlert(stock);
-            try {
-                sendEmailAlert(stock);
-            } catch (MessagingException e) {
-                logger.error("Erreur lors de l'envoi de l'email d'alerte", e);
-            }
+         //  try {
+          //     sendEmailAlert(stock);
+          //  } catch (MessagingException e) {
+           //    logger.error("Erreur lors de l'envoi de l'email d'alerte", e);
+         //  }
         }
     }
 
@@ -117,4 +153,6 @@ public class StockFunImpl implements StockFunctionality {
         mailSender.send(message);
         logger.info("📧 Email d'alerte envoyé avec succès pour le stock de " + stock.getMateriel().getName());
     }
+
+
 }

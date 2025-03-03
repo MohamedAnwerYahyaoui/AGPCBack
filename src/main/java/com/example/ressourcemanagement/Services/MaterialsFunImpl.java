@@ -1,61 +1,58 @@
 package com.example.ressourcemanagement.Services;
 
-import com.example.ressourcemanagement.DAO.FournisseurRepository;
 import com.example.ressourcemanagement.DAO.MaterialsRepository;
-import com.example.ressourcemanagement.Models.Fournisseur;
+import com.example.ressourcemanagement.Models.Categorie;
 import com.example.ressourcemanagement.Models.Materials;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Slf4j
 @Service
 public class MaterialsFunImpl {
-    private MaterialsRepository mr;
 
-    public MaterialsFunImpl(MaterialsRepository mr){
-        this.mr=mr;
+    private final MaterialsRepository mr;
+
+    public MaterialsFunImpl(MaterialsRepository mr) {
+        this.mr = mr;
+        log.info("Repository MaterialsRepository injecté : {}", mr);
     }
 
-
-
-    public Materials ajouterMaterials(Materials materials ) {
+    public Materials ajouterMaterials(Materials materials) {
         return mr.save(materials);
     }
 
-
     public List<Materials> findAll() {
-        log.debug("Récupération de tous les materials");
+        log.debug("Récupération de tous les matériaux");
         List<Materials> materials = mr.findAll();
-        log.debug("Nombre de materials récupérés : {}",materials.size());
+        log.debug("Nombre de matériaux récupérés depuis la base de données : {}", materials.size());
+        log.debug("Matériaux récupérés depuis la base de données : {}", materials); // Affiche la liste complète
         return materials;
     }
 
     public Materials findById(long id) {
         return mr.findById(id)
-                .orElseThrow(() -> new RuntimeException("material non trouvé avec ID : " + id));
+                .orElseThrow(() -> new RuntimeException("Material non trouvé avec ID : " + id));
     }
 
     public Materials updateMaterials(long id, Materials newMaterials) {
-        if (mr.findById(id).isPresent()) {
-            Materials materials = mr.findById(id).get();
-            materials .setName(newMaterials .getName());
-            materials .setQuantity(newMaterials .getQuantity());
-            materials .setUnitPrice(newMaterials .getUnitPrice());
-            materials .setCategorie(newMaterials .getCategorie());
-            return mr.save(materials) ;
-        } else
-            return null;
+        return mr.findById(id)
+                .map(materials -> {
+                    materials.setName(newMaterials.getName());
+                    materials.setQuantity(newMaterials.getQuantity());
+                    materials.setUnitPrice(newMaterials.getUnitPrice());
+                    materials.setCategorie(newMaterials.getCategorie());
+                    return mr.save(materials);
+                })
+                .orElse(null); // Retourne null si le matériau n'est pas trouvé
     }
 
-
-    public String deleteMaterials(long id) {
+    public boolean deleteMaterials(long id) {
         if (mr.findById(id).isPresent()) {
             mr.deleteById(id);
-            return "Matériel supprimé";
-        } else
-            return "Matériel non supprimé";
+            return true; // ✅ Retourne true si la suppression réussit
+        }
+        return false; // ✅ Retourne false si l'ID n'existe pas
     }
 }

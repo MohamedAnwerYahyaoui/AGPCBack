@@ -4,6 +4,7 @@ import com.example.ressourcemanagement.DAO.FactureRepository;
 import com.example.ressourcemanagement.DAO.FournisseurRepository;
 import com.example.ressourcemanagement.Models.Facture;
 import com.example.ressourcemanagement.Models.Fournisseur;
+import com.example.ressourcemanagement.Models.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,9 @@ public class FactureFunImpl implements FactureFunctionality {
 
     @Override
     public List<Facture> getAllFactures() {
-        return factureRepository.findAll();
+        List<Facture> factures = factureRepository.findAll();
+        factures.forEach(facture -> System.out.println("Facture trouvé : " + facture));
+        return factures;
     }
 
     @Override

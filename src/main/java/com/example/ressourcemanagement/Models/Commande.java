@@ -1,5 +1,6 @@
 package com.example.ressourcemanagement.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class Commande {
     @ManyToOne
     @JoinColumn(name = "fournisseur_id")
     private Fournisseur fournisseur;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     private List<Facture> factures;
 

@@ -1,10 +1,12 @@
 package com.example.ressourcemanagement.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Getter
@@ -18,6 +20,7 @@ public class Stock {
 
     @ManyToOne
     @JoinColumn(name = "materiel_id")
+    @JsonIgnoreProperties("stockList") // Ignore la liste de stocks pour éviter la boucle infinie
     private Materials materiel;
     private int currentQuantity;
     private int threshold;

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:4200")
 
 @RestController
 @RequestMapping("/commande")
@@ -18,9 +19,15 @@ public class CommandeController {
     private CommandeFunctionality commandeFunctionality;
 
     @GetMapping
-    public List<Commande> getAllCommandes() {
-        return commandeFunctionality.getAllCommandes();
+    public ResponseEntity<List<Commande>> getAllCommandes() {
+        List<Commande> commandes = commandeFunctionality.getAllCommandes();
+        System.out.println("Commandes récupérées : " + commandes.size()); // Log du nombre de commandes
+        if (commandes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(commandes);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Commande> getCommandeById(@PathVariable int id) {
@@ -28,7 +35,7 @@ public class CommandeController {
         return ResponseEntity.ok(commande);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Commande> createCommande(@RequestBody Commande commande) {
         Commande createdCommande = commandeFunctionality.createCommande(commande);
         return ResponseEntity.ok(createdCommande);
