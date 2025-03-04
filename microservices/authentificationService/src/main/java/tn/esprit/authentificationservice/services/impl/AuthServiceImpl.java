@@ -80,7 +80,7 @@ public class AuthServiceImpl {
                 .uri(tokenUrl)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue(
-                        "grant_type=client_credentials&" +
+                        "grant_type=password&" +
                                 "client_id=" + clientId + "&" +
                                 "client_secret=" + clientSecret + "&" +
                                 "username=" + request.username() + "&" +

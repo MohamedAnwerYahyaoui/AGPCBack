@@ -1,5 +1,6 @@
 package tn.esprit.authentificationservice.services.impl;
 
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -105,9 +106,9 @@ public class UserService implements UserServiceContrat {
     }
 
     @Override
-    public void forgotPassword(String username) {
+    public void forgotPassword(String email) {
         UsersResource usersResource = getUsersResource();
-        List<UserRepresentation> userRepresentations = usersResource.searchByUsername(username, true);
+        List<UserRepresentation> userRepresentations = usersResource.searchByEmail(email, true);
         UserRepresentation userRepresentation1 = userRepresentations.get(0);
         UserResource userResource = usersResource.get(userRepresentation1.getId());
         userResource.executeActionsEmail(List.of("UPDATE_PASSWORD"));
@@ -167,6 +168,98 @@ public class UserService implements UserServiceContrat {
         UsersResource usersResource = getUsersResource();
         return usersResource.get(userId);
 
+    }
+
+    @Override
+    public void updateUser(String userId, UserRecord updatedUser) {
+        UsersResource usersResource = getUsersResource();
+        UserResource userResource = usersResource.get(userId);
+        UserRepresentation userRep = userResource.toRepresentation();
+
+        // Track if email changed for verification
+        boolean emailChanged = !userRep.getEmail().equalsIgnoreCase(updatedUser.email());
+
+        // Update basic fields
+        userRep.setFirstName(updatedUser.firstName());
+        userRep.setLastName(updatedUser.lastName());
+        userRep.setEmail(updatedUser.email());
+        userRep.setUsername(updatedUser.username());
+
+
+        // Handle email verification if email changed
+        if (emailChanged) {
+            userRep.setEmailVerified(false);
+        }
+
+        // Update user attributes
+        userResource.update(userRep);
+
+        // Send verification email if email changed
+        if (emailChanged) {
+            sendVerificationEmail(userId);
+            log.info("Verification email sent to updated email: {}", updatedUser.email());
+        }
+
+        // Update password if provided
+        if (updatedUser.password() != null && !updatedUser.password().isEmpty()) {
+            try {
+                CredentialRepresentation credential = new CredentialRepresentation();
+                credential.setType(CredentialRepresentation.PASSWORD);
+                credential.setValue(updatedUser.password());
+                credential.setTemporary(false);
+                userResource.resetPassword(credential);
+                log.info("Password updated successfully for user {}", updatedUser.username());
+            } catch (Exception e) {
+                log.error("Password reset failed for user {}: {}", updatedUser.username(), e.getMessage());
+                throw new RuntimeException("Password update failed", e);
+            }
+        }
+
+        // Update roles
+        RoleMappingResource roleMappingResource = userResource.roles();
+        RealmResource realmResource = getRealmResource();
+
+        // Get current roles
+        List<RoleRepresentation> currentRoles = roleMappingResource.realmLevel().listAll();
+        List<String> currentRoleNames = currentRoles.stream()
+                .map(RoleRepresentation::getName)
+                .collect(Collectors.toList());
+
+        // Calculate roles to add and remove
+        List<String> newRoles = updatedUser.roles();
+
+        // Remove obsolete roles
+        List<RoleRepresentation> rolesToRemove = currentRoles.stream()
+                .filter(role -> !newRoles.contains(role.getName()))
+                .collect(Collectors.toList());
+
+        if (!rolesToRemove.isEmpty()) {
+            roleMappingResource.realmLevel().remove(rolesToRemove);
+            log.info("Removed roles from user {}: {}", updatedUser.username(),
+                    rolesToRemove.stream().map(RoleRepresentation::getName).collect(Collectors.toList()));
+        }
+
+        // Add new roles with error handling
+        for (String roleName : newRoles) {
+            try {
+                RoleRepresentation role = realmResource.roles().get(roleName).toRepresentation();
+                if (role != null && !currentRoleNames.contains(roleName)) {
+                    roleMappingResource.realmLevel().add(List.of(role));
+                    log.info("Role '{}' assigned to user '{}'", roleName, updatedUser.username());
+                }
+            } catch (NotFoundException e) {
+                log.warn("Role '{}' not found in Keycloak - skipped assignment", roleName);
+            }
+        }
+
+        // Verify user exists post-update
+        List<UserRepresentation> updatedUsers = usersResource.search(updatedUser.username());
+        if (updatedUsers.isEmpty()) {
+            log.error("User verification failed after update for {}", updatedUser.username());
+            throw new RuntimeException("User not found after update");
+        }
+
+        log.info("User '{}' updated successfully with ID: {}", updatedUser.username(), userId);
     }
 
 

@@ -91,6 +91,7 @@ public class WebSecurityConfiguration {
                         .requestMatchers(HttpMethod.PUT, "/users/*/send-verification-email").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/*").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/forgot-password").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/users/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/*/roles").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/*").permitAll()
@@ -102,6 +103,7 @@ public class WebSecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/roles/all").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/roles/*").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/roles/assign/users/*").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/roles/*").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/roles/remove/users/*").permitAll()
 
                         .anyRequest().authenticated()

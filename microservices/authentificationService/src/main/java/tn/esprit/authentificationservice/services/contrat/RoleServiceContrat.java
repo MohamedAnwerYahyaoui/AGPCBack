@@ -15,5 +15,7 @@ public interface RoleServiceContrat {
     void assignRole(String userId ,String roleName);
    void deleteRoleFromUser(String userId ,String roleName);
 
+    public void updateRole(String originalRoleName, RoleRecord updatedRole);
+
 
 }

@@ -14,12 +14,14 @@ public interface UserServiceContrat {
     void createUser(UserRecord newUserRecord);
   void sendVerificationEmail(String userId);
    void deleteUser(String userId);
-   void forgotPassword(String username);
+   void forgotPassword(String email);
     UserDTO getUser(String userId);
     List<RoleRepresentation> getUserRoleEndpoint(String userId);
     List<GroupRepresentation> getUserGroups(String userId);
 
     public List<UserDTO> getAllUsers();
     public UserResource getUserHelper(String userId);
+
+    public void updateUser(String userId, UserRecord updatedUser);
 
 }

@@ -4,6 +4,7 @@ import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.RoleResource;
 import org.keycloak.admin.client.resource.RolesResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -88,6 +89,20 @@ public void createRole(RoleRecord newRoleRecord) {
         RolesResource rolesResource = getRolesResource();
         RoleRepresentation representation = rolesResource.get(roleName).toRepresentation();
         user.roles().realmLevel().remove(Collections.singletonList(representation));
+
+    }
+
+    @Override
+    public void updateRole(String originalRoleName, RoleRecord updatedRole) {
+        RolesResource rolesResource = getRolesResource();
+        RoleResource roleResource = rolesResource.get(originalRoleName);
+        RoleRepresentation roleRep = roleResource.toRepresentation();
+
+        roleRep.setName(updatedRole.roleName());
+        roleRep.setDescription(updatedRole.description());
+
+        roleResource.update(roleRep);
+        log.info("Role '{}' updated successfully!", originalRoleName);
 
     }
 

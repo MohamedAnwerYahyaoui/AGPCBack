@@ -61,9 +61,9 @@ public class UsersAPI {
 
 
     @PutMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestParam String username) {
+    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
 
-        userServiceContrat.forgotPassword(username);
+        userServiceContrat.forgotPassword(email);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -79,5 +79,15 @@ public class UsersAPI {
 
         return ResponseEntity.status(HttpStatus.OK).body(userServiceContrat.getUserGroups(id));
     }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<?> updateUser(
+            @PathVariable String userId,
+            @RequestBody UserRecord updatedUser
+    ) {
+        userServiceContrat.updateUser(userId, updatedUser);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

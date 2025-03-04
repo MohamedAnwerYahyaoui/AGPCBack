@@ -55,4 +55,14 @@ public class RolesAPI {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PutMapping("/{originalRoleName}")
+    public ResponseEntity<?> updateRole(
+            @PathVariable String originalRoleName,
+            @RequestBody RoleRecord updatedRole
+    ) {
+        roleService.updateRole(originalRoleName, updatedRole);
+        return ResponseEntity.ok().build();
+    }
+
+
 }
