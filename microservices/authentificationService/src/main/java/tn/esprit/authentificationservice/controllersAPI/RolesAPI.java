@@ -11,6 +11,7 @@ import tn.esprit.authentificationservice.Models.UserRecord;
 import tn.esprit.authentificationservice.services.contrat.RoleServiceContrat;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -62,6 +63,23 @@ public class RolesAPI {
     ) {
         roleService.updateRole(originalRoleName, updatedRole);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/role/{roleName}")
+    public ResponseEntity<RoleDTO> getRoleByName(@PathVariable String roleName) {
+        RoleDTO roleDTO = roleService.getRoleByName(roleName);
+        return ResponseEntity.ok(roleDTO);
+    }
+
+    @GetMapping("/id/{roleId}")
+    public ResponseEntity<?> getRoleById(@PathVariable String roleId) {
+        try {
+            RoleDTO roleDTO = roleService.getRoleById(roleId);
+            return ResponseEntity.ok(roleDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", e.getMessage()));
+        }
     }
 
 

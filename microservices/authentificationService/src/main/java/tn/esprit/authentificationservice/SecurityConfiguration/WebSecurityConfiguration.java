@@ -101,6 +101,9 @@ public class WebSecurityConfiguration {
                         // Role API Endpoints
                         .requestMatchers(HttpMethod.POST, "/roles/add").permitAll()
                         .requestMatchers(HttpMethod.GET, "/roles/all").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/roles/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/roles/role/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/roles/id/*").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/roles/*").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/roles/assign/users/*").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/roles/*").permitAll()

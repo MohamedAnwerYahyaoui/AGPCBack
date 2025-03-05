@@ -106,6 +106,43 @@ public void createRole(RoleRecord newRoleRecord) {
 
     }
 
+    @Override
+    public RoleDTO getRoleByName(String roleName) {
+        RolesResource rolesResource = getRolesResource();
+
+        RoleRepresentation role = rolesResource.get(roleName).toRepresentation();
+
+        return new RoleDTO(
+                role.getId(),
+                role.getName(),
+                role.getDescription()
+        );
+    }
+
+    @Override
+    public RoleDTO getRoleById(String roleId) {
+        try {
+            // Get all roles
+            RolesResource rolesResource = getRolesResource();
+            List<RoleRepresentation> roles = rolesResource.list();
+
+            // Find the role by ID
+            RoleRepresentation role = roles.stream()
+                    .filter(r -> roleId.equals(r.getId()))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Role not found with ID: " + roleId));
+
+            return new RoleDTO(
+                    role.getId(),
+                    role.getName(),
+                    role.getDescription()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch role: " + e.getMessage(), e);
+        }
+
+    }
+
 
     private RolesResource getRolesResource() {
         return keycloak.realm(realm).roles();
