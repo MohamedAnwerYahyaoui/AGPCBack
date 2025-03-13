@@ -28,46 +28,6 @@ public class WebSecurityConfiguration {
         return new RestTemplate();
     }
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//
-//        return (web) -> {
-//            web.ignoring().requestMatchers(
-//                    HttpMethod.POST,
-//                    "/public/**",
-//                    "/users",
-//                    "/roles",
-//                    "/login",
-//                    "/logout/{userId}",
-//                    "/loginIn",
-//                    "/logoutOut"
-//            );
-//
-//            web.ignoring().requestMatchers(
-//                    HttpMethod.GET,
-//                    "/public/**"
-//            );
-//            web.ignoring().requestMatchers(
-//                    HttpMethod.DELETE,
-//                    "/public/**",
-//                    "/auth/users/{id}"
-//            );
-//            web.ignoring().requestMatchers(
-//                    HttpMethod.PUT,
-//                    "/public/**",
-//                    "/auth/users/{id}/send-verification-email",
-//                    "/auth/users/forgot-password"
-//
-//            );
-//            web.ignoring().requestMatchers(
-//                            HttpMethod.OPTIONS,
-//                            "/**"
-//                    )
-//                    .requestMatchers("/v3/api-docs/**", "/configuration/**", "/swagger-ui/**",
-//                            "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/api-docs/**");
-//
-//        };
-//    }
 
 
     @Bean

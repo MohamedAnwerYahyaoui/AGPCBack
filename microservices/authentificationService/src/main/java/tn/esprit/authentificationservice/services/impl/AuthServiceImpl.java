@@ -38,37 +38,6 @@ public class AuthServiceImpl {
 
     private final Keycloak keycloak;
 
-//    @Override
-//    public Map<String, Object> login(LoginRecord loginRecord) {
-//        try {
-//            Keycloak keycloak = KeycloakBuilder.builder()
-//                    .serverUrl(keycloakUrl)
-//                    .realm(realm)
-//                    .clientId(clientId)
-//                    .clientSecret(clientSecret)
-//                    .username(loginRecord.username()) // Use username from LoginRecord
-//                    .password(loginRecord.password()) // Use password from LoginRecord
-//                    .grantType("password")
-//                    .build();
-//
-//            String accessToken = keycloak.tokenManager().getAccessToken().getToken();
-//
-//            Map<String, Object> response = new HashMap<>();
-//            response.put("token", accessToken);
-//            response.put("message", "Login successful");
-//            return response;
-//        } catch (Exception e) {
-//            throw new RuntimeException("Invalid username or password");
-//        }
-//    }
-//
-//    @Override
-//    public void logout(String userId) {
-//        RealmResource realmResource = keycloak.realm(realm);
-//        UserResource userResource = realmResource.users().get(userId);
-//        userResource.logout();
-//    }
-
 
     private final WebClient webClient = WebClient.create();
 

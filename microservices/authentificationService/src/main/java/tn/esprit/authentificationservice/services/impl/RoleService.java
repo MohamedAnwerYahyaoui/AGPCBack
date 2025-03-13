@@ -78,9 +78,18 @@ public void createRole(RoleRecord newRoleRecord) {
         UserResource user = userService.getUserHelper(userId);
         RolesResource rolesResource = getRolesResource();
         RoleRepresentation representation = rolesResource.get(roleName).toRepresentation();
+
+        // Check if the user already has the role
+        List<RoleRepresentation> userRoles = user.roles().realmLevel().listAll();
+        boolean alreadyHasRole = userRoles.stream()
+                .anyMatch(role -> role.getName().equals(roleName));
+
+        if (alreadyHasRole) {
+            throw new IllegalArgumentException("User already has the role: " + roleName);
+        }
+
+        // Assign the role
         user.roles().realmLevel().add(Collections.singletonList(representation));
-
-
     }
 
     @Override
@@ -88,8 +97,18 @@ public void createRole(RoleRecord newRoleRecord) {
         UserResource user = userService.getUserHelper(userId);
         RolesResource rolesResource = getRolesResource();
         RoleRepresentation representation = rolesResource.get(roleName).toRepresentation();
-        user.roles().realmLevel().remove(Collections.singletonList(representation));
 
+        // Check if the user has the role
+        List<RoleRepresentation> userRoles = user.roles().realmLevel().listAll();
+        boolean hasRole = userRoles.stream()
+                .anyMatch(role -> role.getName().equals(roleName));
+
+        if (!hasRole) {
+            throw new IllegalArgumentException("User does not have the role: " + roleName);
+        }
+
+        // Remove the role
+        user.roles().realmLevel().remove(Collections.singletonList(representation));
     }
 
     @Override

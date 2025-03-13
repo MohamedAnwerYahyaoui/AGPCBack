@@ -1,7 +1,6 @@
 package tn.esprit.authentificationservice.controllersAPI;
 
 import lombok.RequiredArgsConstructor;
-import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,15 +44,21 @@ public class RolesAPI {
 
     @PutMapping("/assign/users/{userId}")
     public ResponseEntity<?> assignRole(@PathVariable String userId, @RequestParam String roleName) {
-
-        roleService.assignRole(userId, roleName);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        try {
+            roleService.assignRole(userId, roleName);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
     @DeleteMapping("/remove/users/{userId}")
     public ResponseEntity<?> unAssignRole(@PathVariable String userId, @RequestParam String roleName) {
-
-        roleService.deleteRoleFromUser(userId, roleName);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        try {
+            roleService.deleteRoleFromUser(userId, roleName);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PutMapping("/{originalRoleName}")
