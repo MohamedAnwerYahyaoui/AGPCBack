@@ -5,20 +5,29 @@
       <profile default="true" name="Default" enabled="true">
         <processorPath useClasspath="false" />
       </profile>
-      <profile name="Annotation profile for authentificationService" enabled="true">
+      <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
-        <module name="authentificationService" />
+        <module name="user" />
+        <module name="livrable" />
+        <module name="GmailApi" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="authentificationService" target="17" />
+      <module name="Gmail" target="17" />
+      <module name="linkedin" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Gmail" options="-parameters" />
+      <module name="GmailApi" options="-parameters" />
       <module name="authentificationService" options="-parameters" />
+      <module name="linkedin" options="-parameters" />
+      <module name="livrable" options="-parameters" />
+      <module name="user" options="-parameters" />
     </option>
   </component>
 </project>
