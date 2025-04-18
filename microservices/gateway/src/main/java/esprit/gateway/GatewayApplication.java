@@ -21,6 +21,45 @@ public class GatewayApplication {
                 "authMS",r->r.path("/um/**").uri("lb://authentificationService")
 
         )
+                .route(
+                        "RessourceMMS",r->r.path("/rm/**").uri("lb://Ressource-Management")
+
+                )
+                .route(
+                        "FormationMMS",r->r.path("/formations/**").uri("lb://formations")
+
+                )
+                .route(
+                        "BMMS",r->r.path("/bm/**").uri("lb://Budget")
+
+                )
+                .route(
+                        "EnvMMS",r->r.path("/environnement/**").uri("lb://environnement")
+
+                )
+                .route(
+                        "DOCMMS",r->r.path("/document/**").uri("lb://Document")
+
+                )
+                .route(
+                        "EmplMMS",r->r.path("/membres/**").uri("lb://Employee")
+
+                )
+                .route(
+                        "LivrableMMS",r->r.path("/livra/**").uri("lb://livrable")
+
+                )
+                .route(
+                        "ReclamationMMS",r->r.path("/reclamation/**").uri("lb://reclamation")
+
+                )
+                .route(
+                        "UserMMS",r->r.path("/user/**").uri("lb://user")
+
+                )
+
+
+
 
 
 

@@ -7,6 +7,16 @@
         <option value="$PROJECT_DIR$/microservices/authentificationService/pom.xml" />
         <option value="$PROJECT_DIR$/microservices/eurekaServer/pom.xml" />
         <option value="$PROJECT_DIR$/microservices/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/Ressource-Management/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/formations/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/environnement/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/budget/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/DocumentAssurance/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/Employee/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/livrable/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/GmailApi/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/user/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/reclamation/pom.xml" />
       </list>
     </option>
   </component>

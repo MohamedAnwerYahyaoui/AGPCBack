@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="45d23504-04a9-40f6-aa4d-91433aa7252b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Controller/CommandeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Controller/CommandeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Controller/FactureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Controller/FactureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Controller/MaterialsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Controller/MaterialsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Controller/StockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Controller/StockController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/DAO/CommandeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/DAO/CommandeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Models/Commande.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Models/Commande.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Models/Fournisseur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Models/Fournisseur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Models/Materials.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Models/Materials.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Models/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Models/Stock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Services/FactureFunImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Services/FactureFunImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Services/MaterialsFunImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Services/MaterialsFunImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Services/StockFunImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ressourcemanagement/Services/StockFunImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2t7wsT6gNClu11c4x5Q2UgakTTM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Ressource-Management&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/farah kouki/IdeaProjects/4sae9/projetSAE9-main (3)&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="RessourceManagementApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Ressource-Management" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.ressourcemanagement.RessourceManagementApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="45d23504-04a9-40f6-aa4d-91433aa7252b" name="Changes" comment="" />
+      <created>1739716629828</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739716629828</updated>
+      <workItem from="1739716630879" duration="11748000" />
+      <workItem from="1739781411915" duration="616000" />
+      <workItem from="1739820358034" duration="8054000" />
+      <workItem from="1739873005862" duration="4834000" />
+      <workItem from="1740037639809" duration="18880000" />
+      <workItem from="1740312364865" duration="11883000" />
+      <workItem from="1740334421197" duration="5289000" />
+      <workItem from="1740343721249" duration="284000" />
+      <workItem from="1740401649218" duration="1269000" />
+      <workItem from="1740404564726" duration="55000" />
+      <workItem from="1740405918562" duration="6815000" />
+      <workItem from="1740488941630" duration="14564000" />
+      <workItem from="1740558051519" duration="1239000" />
+      <workItem from="1740560288373" duration="655000" />
+      <workItem from="1740587109398" duration="12248000" />
+      <workItem from="1740644452986" duration="2199000" />
+      <workItem from="1740673322570" duration="2378000" />
+      <workItem from="1740730821038" duration="324000" />
+      <workItem from="1740761661686" duration="1920000" />
+      <workItem from="1740832831641" duration="2963000" />
+      <workItem from="1740875826054" duration="764000" />
+      <workItem from="1740932104807" duration="1934000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
