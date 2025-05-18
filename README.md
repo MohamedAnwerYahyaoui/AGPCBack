@@ -11,7 +11,7 @@ Bienvenue dans le module **Ressource** du projet AGPCBack, une solution de gesti
 - **Gestion CRUD** des ressources
 - **API RESTful** conforme aux standards
 - **Intégration Spring Cloud** (Eureka, Config Server, etc.)
-- **Base de données** (MySQL/PostgreSQL/MongoDB)
+- **Base de données** (MySQL)
 - **Sécurité JWT** (optionnelle)
 
 ## 🛠 Technologies
@@ -19,7 +19,7 @@ Bienvenue dans le module **Ressource** du projet AGPCBack, une solution de gesti
 - ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=spring&logoColor=white) Spring Boot 3.x
 - ![Spring Cloud](https://img.shields.io/badge/Spring_Cloud-20232A?style=flat&logo=spring&logoColor=white) Spring Cloud
 - ![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=flat&logo=hibernate&logoColor=white) Hibernate/JPA
-- ![Database](https://img.shields.io/badge/Database-4479A1?style=flat&logo=postgresql&logoColor=white) Base de données au choix
+- ![Database](https://img.shields.io/badge/Database-4479A1?style=flat&logo=postgresql&logoColor=white) MySQL
 - ![Maven](https://img.shields.io/badge/Maven-C71A36?style=flat&logo=apachemaven&logoColor=white) Maven
 
 ## 🚀 Démarrage rapide
